@@ -70,13 +70,26 @@
                             break;
                     }
 
-                    Console.Write("\nWould you like to play again? (y/n) ");
-                    string playAgainInput = Console.ReadLine().ToLower();
-
-                    if (playAgainInput != "y")
+                    bool validInput = false;
+                    while (!validInput)
                     {
-                        playAgain = false;
-                        Console.WriteLine("Thanks for playing!");
+                        Console.Write("\nWould you like to play again? (y/n) ");
+                        string playAgainInput = Console.ReadLine().ToLower();
+
+                        if (playAgainInput == "y")
+                        {
+                            validInput = true;
+                        }
+                        else if (playAgainInput == "n")
+                        {
+                            playAgain = false;
+                            validInput = true;
+                            Console.WriteLine("Thanks for playing!");
+                        }
+                        else
+                        {
+                            Console.WriteLine("Invalid input. Please enter 'y' or 'n'.");
+                        }
                     }
                 }
                 catch (Exception ex)
