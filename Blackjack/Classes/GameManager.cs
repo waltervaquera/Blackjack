@@ -17,56 +17,63 @@
         {
             while (true)
             {
-                deck.Shuffle();
-                player.Hand.Clear();
-                dealer.Hand.Clear();
-
-                DealInitialCards();
-
-                while (true)
+                try
                 {
-                    Console.WriteLine("\nYour hand:");
-                    Console.WriteLine(player.Hand.ToString());
-                    Console.WriteLine("Your score: " + player.GetScore());
+                    deck.Shuffle();
+                    player.Hand.Clear();
+                    dealer.Hand.Clear();
 
-                    Console.WriteLine("\nDealer's hand:");
-                    Console.WriteLine(dealer.Hand.ToString(true));
+                    DealInitialCards();
 
-                    if (player.GetScore() > 21)
+                    while (true)
                     {
-                        Console.WriteLine("You busted! Dealer wins.");
-                        break;
+                        Console.WriteLine("\nYour hand:");
+                        Console.WriteLine(player.Hand.ToString());
+                        Console.WriteLine("Your score: " + player.GetScore());
+
+                        Console.WriteLine("\nDealer's hand:");
+                        Console.WriteLine(dealer.Hand.ToString(true));
+
+                        if (player.GetScore() > 21)
+                        {
+                            Console.WriteLine("You busted! Dealer wins.");
+                            break;
+                        }
+
+                        Console.Write("\nWould you like to (h)it or (s)tand? ");
+                        string input = Console.ReadLine().ToLower();
+
+                        switch (input)
+                        {
+                            case "h":
+                                player.Hand.Add(deck.DrawCard());
+                                break;
+                            case "s":
+                                dealer.PlayHand(deck);
+                                Console.WriteLine("\nDealer's hand:");
+                                Console.WriteLine(dealer.Hand.ToString());
+                                Console.WriteLine("Dealer's score: " + dealer.GetScore());
+
+                                DetermineWinner();
+                                return;
+                            default:
+                                Console.WriteLine("Invalid input. Please enter 'h' or 's'.");
+                                break;
+                        }
                     }
 
-                    Console.Write("\nWould you like to (H)it or (S)tand? ");
-                    string input = Console.ReadLine().ToUpper();
+                    Console.Write("\nWould you like to play again? (y/n) ");
+                    string playAgain = Console.ReadLine().ToLower();
 
-                    switch (input)
+                    if (playAgain != "y")
                     {
-                        case "H":
-                            player.Hand.Add(deck.DrawCard());
-                            break;
-                        case "S":
-                            dealer.PlayHand(deck);
-                            Console.WriteLine("\nDealer's hand:");
-                            Console.WriteLine(dealer.Hand.ToString());
-                            Console.WriteLine("Dealer's score: " + dealer.GetScore());
-
-                            DetermineWinner();
-                            return;
-                        default:
-                            Console.WriteLine("Invalid input. Please enter 'H' or 'S'.");
-                            break;
+                        Console.WriteLine("Thanks for playing!");
+                        return;
                     }
                 }
-
-                Console.Write("\nWould you like to play again? (Y/N) ");
-                string playAgain = Console.ReadLine().ToUpper();
-
-                if (playAgain != "Y")
+                catch (Exception ex)
                 {
-                    Console.WriteLine("Thanks for playing!");
-                    return;
+                    Console.WriteLine($"An error occurred: {ex.Message}");
                 }
             }
         }

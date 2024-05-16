@@ -1,4 +1,5 @@
 ﻿using BlackjackConsoleGame.Classes;
+using System;
 
 namespace BlackjackConsoleGame
 {
@@ -6,9 +7,16 @@ namespace BlackjackConsoleGame
     {
         static void Main(string[] args)
         {
-            Console.WriteLine("Welcome to the Blackjack Console Game!");
-            GameManager gameManager = new GameManager();
-            gameManager.PlayGame();
+            try
+            {
+                Console.WriteLine("Welcome to the Blackjack Console Game!");
+                GameManager gameManager = new GameManager();
+                gameManager.PlayGame();
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"An error occurred: {ex.Message}");
+            }
         }
     }
 }
