@@ -15,7 +15,9 @@
 
         public void PlayGame()
         {
-            while (true)
+            bool playAgain = true;
+
+            while (playAgain)
             {
                 try
                 {
@@ -24,6 +26,8 @@
                     dealer.Hand.Clear();
 
                     DealInitialCards();
+
+                    bool playerStands = false;
 
                     while (true)
                     {
@@ -49,26 +53,30 @@
                                 player.Hand.Add(deck.DrawCard());
                                 break;
                             case "s":
+                                playerStands = true;
                                 dealer.PlayHand(deck);
                                 Console.WriteLine("\nDealer's hand:");
                                 Console.WriteLine(dealer.Hand.ToString());
                                 Console.WriteLine("Dealer's score: " + dealer.GetScore());
 
                                 DetermineWinner();
-                                return;
+                                break;
                             default:
                                 Console.WriteLine("Invalid input. Please enter 'h' or 's'.");
                                 break;
                         }
+
+                        if (playerStands)
+                            break;
                     }
 
                     Console.Write("\nWould you like to play again? (y/n) ");
-                    string playAgain = Console.ReadLine().ToLower();
+                    string playAgainInput = Console.ReadLine().ToLower();
 
-                    if (playAgain != "y")
+                    if (playAgainInput != "y")
                     {
+                        playAgain = false;
                         Console.WriteLine("Thanks for playing!");
-                        return;
                     }
                 }
                 catch (Exception ex)

@@ -20,6 +20,10 @@
                 {
                     acesCount++;
                 }
+                else if (card.Value >= Values.Jack)
+                {
+                    score += 10;
+                }
                 else
                 {
                     score += (int)card.Value;
