@@ -20,3 +20,4 @@ namespace BlackjackConsoleGame
         }
     }
 }
+//release branch of the project
