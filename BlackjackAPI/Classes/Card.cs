@@ -10,6 +10,11 @@
             Suit = suit;
             Value = value;
         }
+
+        public override string ToString()
+        {
+            return $"{Value} of {Suit}";
+        }
     }
 
     public enum Suits

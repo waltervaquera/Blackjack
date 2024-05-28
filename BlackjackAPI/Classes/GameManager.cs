@@ -3,9 +3,9 @@
     public class GameManager
     {
         private Deck deck;
-        private Player player;
-        private Dealer dealer;
-        private bool gameInProgress;
+        public Player player;
+        public Dealer dealer;
+        public bool gameInProgress { get; private set; }
         private GameResult gameResult;
 
         public GameManager()
@@ -33,9 +33,9 @@
             return player.Hand.ToString();
         }
 
-        public string GetDealerHand()
+        public string GetDealerHand(bool hideFirstCard)
         {
-            return dealer.Hand.ToString();
+            return dealer.Hand.ToString(hideFirstCard);
         }
 
         public void Hit()
