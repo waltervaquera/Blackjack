@@ -1,0 +1,6 @@
+@BlackjackAPI_HostAddress = http://localhost:5269
+
+GET {{BlackjackAPI_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
